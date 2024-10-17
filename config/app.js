@@ -30,6 +30,9 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Підключення статичних файлів
+app.use(express.static(path.join(__dirname, '../public')));
+
 // Підключення маршрутів для авторизації
 const authRoutes = require('../routes/auth');
 app.use('/', authRoutes);
@@ -61,13 +64,16 @@ sequelize.sync()
     });
 
 // Маршрут для головної сторінки
-app.get('/', isAuthenticated, async (req, res) => {
+app.get('/', async (req, res) => {
     try {
         const products = await Product.findAll();
-        const orders = await Order.findAll({
-            where: { user_id: req.user.id },
-            include: [Product]
-        });
+        let orders = [];
+        if (req.isAuthenticated()) {
+            orders = await Order.findAll({
+                where: { user_id: req.user.id },
+                include: [Product]
+            });
+        }
         res.render('home', { products, orders });
     } catch (err) {
         console.error('Error fetching products or orders:', err);
@@ -93,7 +99,8 @@ app.post('/admin/orders/:id', isAuthenticated, isAdmin, async (req, res) => {
 app.get('/admin/orders', isAuthenticated, isAdmin, async (req, res) => {
     try {
         const orders = await Order.findAll({ include: [User, Product] });
-        res.render('admin_orders', { orders });
+        const products = await Product.findAll();
+        res.render('admin_orders', { orders, products });
     } catch (err) {
         console.error('Error fetching orders:', err);
         res.status(500).send('Error fetching orders');
@@ -137,9 +144,45 @@ app.post('/order', isAuthenticated, async (req, res) => {
     }
 });
 
-// Запуск сервера
-app.listen(PORT, () => {
-    console.log(`Server is running at http://localhost:${PORT}`);
+// Маршрут для сторінки входу
+app.get('/login', (req, res) => {
+    res.render('login'); // Використовуємо загальний шаблон для входу
+});
+
+// Маршрут для входу звичайного користувача
+app.post('/login', passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/login'
+}));
+
+// Маршрут для входу адміністратора
+app.post('/admin/login', passport.authenticate('local', {
+    successRedirect: '/admin/orders',
+    failureRedirect: '/login'
+}));
+
+// Маршрут для створення продукту (admin only)
+app.post('/admin/products/create', isAuthenticated, isAdmin, async (req, res) => {
+    try {
+        const { product_name, price } = req.body;
+        await Product.create({ product_name, price });
+        res.redirect('/admin/orders');
+    } catch (err) {
+        console.error('Error creating product:', err);
+        res.status(500).send('Error creating product');
+    }
+});
+
+// Маршрут для видалення продукту (admin only)
+app.post('/admin/products/:id/delete', isAuthenticated, isAdmin, async (req, res) => {
+    try {
+        const productId = req.params.id;
+        await Product.destroy({ where: { id: productId } });
+        res.redirect('/admin/orders');
+    } catch (err) {
+        console.error('Error deleting product:', err);
+        res.status(500).send('Error deleting product');
+    }
 });
 
 // Middleware for authentication
@@ -147,12 +190,8 @@ function isAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
     }
-    res.redirect('/register'); // Redirect to login page if not authenticated
+    res.redirect('/login'); // Redirect to login page if not authenticated
 }
-
-app.use(express.static(path.join(__dirname, '../public')));
-
-
 
 // Middleware for admin check
 function isAdmin(req, res, next) {
@@ -162,12 +201,7 @@ function isAdmin(req, res, next) {
     res.status(403).send('Access denied. Admins only.');
 }
 
-// Маршрут для входу адміністратора
-app.get('/admin/login', (req, res) => {
-    res.render('admin_login'); // Шаблон admin_login.ejs у папці views
+// Запуск сервера
+app.listen(PORT, () => {
+    console.log(`Server is running at http://localhost:${PORT}`);
 });
-
-app.post('/admin/login', passport.authenticate('local', {
-    successRedirect: '/admin/orders',
-    failureRedirect: '/admin/login'
-}));

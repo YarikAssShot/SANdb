@@ -46,5 +46,39 @@
     <% }) %>
     </tbody>
 </table>
+
+<h1>Manage Products</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Product ID</th>
+        <th>Product Name</th>
+        <th>Price</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% products.forEach(product => { %>
+        <tr>
+            <td><%= product.id %></td>
+            <td><%= product.product_name %></td>
+            <td><%= product.price %></td>
+            <td>
+                <form action="/admin/products/<%= product.id %>/delete" method="POST" onsubmit="return confirm('Are you sure you want to delete this product?');">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+    <% }) %>
+    </tbody>
+</table>
+
+<h2>Add New Product</h2>
+<form action="/admin/products/create" method="POST">
+    <input type="text" name="product_name" placeholder="Product Name" required>
+    <input type="number" name="price" placeholder="Price" step="0.01" required>
+    <button type="submit">Add Product</button>
+</form>
+
 </body>
 </html>
