@@ -1,0 +1,52 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+
+# Logs
+logs
+*.log
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+
+# Build files and transpilation output
+dist/
+build/
+coverage/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Database
+*.sqlite
+*.sqlite3
+
+# Sequelize migrations and seeders compiled by Babel (if used)
+/sequelize-migrations/
+/sequelize-seed/
+
+# Static files
+/public/*.js.map
+/public/*.css.map
+
+# IDE/editor-specific files
+.idea/
+.vscode/
+*.swp
+
+# EJS view engine cache (optional)
+views/*.ejs.cache
+
+# Secrets
+/config/*.json
+
+# Misc
+*.bak
+*.backup

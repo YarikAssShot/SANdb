@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Orders</title>
+    <link rel="stylesheet" href="/css/admin_orders.css">
+    <link rel="stylesheet" href="/css/global.css">
+</head>
+<body>
+<h1>All Orders</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Order ID</th>
+        <th>User</th>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% orders.forEach(order => { %>
+        <tr>
+            <td><%= order.id %></td>
+            <td><%= order.User.name %></td>
+            <td><%= order.Product.product_name %></td>
+            <td><%= order.quantity %></td>
+            <td>
+                <form action="/admin/orders/<%= order.id %>" method="POST">
+                    <select name="status">
+                        <option value="in progress" <%= order.status === 'in progress' ? 'selected' : '' %>>In Progress</option>
+                        <option value="shipped" <%= order.status === 'shipped' ? 'selected' : '' %>>Shipped</option>
+                        <option value="delivered" <%= order.status === 'delivered' ? 'selected' : '' %>>Delivered</option>
+                    </select>
+                    <button type="submit">Update</button>
+                </form>
+            </td>
+            <td>
+                <form action="/admin/orders/<%= order.id %>/delete" method="POST" onsubmit="return confirm('Are you sure you want to delete this order?');">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+    <% }) %>
+    </tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+    <link rel="stylesheet" href="/css/product_list.css">
+    <link rel="stylesheet" href="/css/global.css">
+</head>
+<body>
+<h1>Welcome to Our Store</h1>
+
+<div class="flex-container">
+    <div class="products-container">
+        <h2>Available Products</h2>
+        <form action="/order" method="POST">
+            <% products.forEach(product => { %>
+                <div>
+                    <h3><%= product.product_name %> - $<%= product.price %></h3>
+                    <label for="quantity_<%= product.id %>">Quantity:</label>
+                    <input type="number" id="quantity_<%= product.id %>" name="quantity_<%= product.id %>" min="0" value="0">
+                </div>
+            <% }); %>
+            <button type="submit">Order Selected Products</button>
+        </form>
+    </div>
+
+    <div class="orders-container">
+        <h2>Your Orders</h2>
+        <% if (orders && orders.length > 0) { %>
+            <table>
+                <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% orders.forEach(order => { %>
+                    <tr>
+                        <td><%= order.id %></td>
+                        <td><%= order.Product.product_name %></td>
+                        <td><%= order.quantity %></td>
+                        <td><%= order.status %></td>
+                    </tr>
+                <% }); %>
+                </tbody>
+            </table>
+        <% } else { %>
+            <p>No orders found.</p>
+        <% } %>
+    </div>
+</div>
+</body>
+</html>
