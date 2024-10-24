@@ -1,17 +1,14 @@
-/* product_list.css */
-
-/* Стили для контейнера flex для продуктов и заказов */
 .flex-container {
     display: flex;
     justify-content: space-around;
     gap: 20px;
-    margin: 40px 5%; /* Отступ сверху и снизу, плюс отступы по бокам */
+    margin: 40px 5%;
 }
 
 .products-container,
 .orders-container {
     flex: 1;
-    max-width: 45%; /* Уменьшение ширины, чтобы добавить больше отступов */
+    max-width: 45%;
     min-width: 300px;
     padding: 10px;
     background-color: #fff;
@@ -19,7 +16,6 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Стили для контейнера продуктов */
 div.product {
     margin-bottom: 20px;
     padding: 10px;
@@ -35,7 +31,6 @@ div.product:hover {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Стили для лейблов */
 label {
     font-weight: bold;
     display: block;
@@ -43,7 +38,6 @@ label {
     color: #555;
 }
 
-/* Стили для инпута количества */
 input[type="number"] {
     width: 60px;
     padding: 8px;
@@ -51,7 +45,6 @@ input[type="number"] {
     border: 1px solid #ccc;
 }
 
-/* Стили для таблицы заказов */
 table {
     width: 100%;
     margin: 20px 0;
@@ -73,7 +66,6 @@ th, td {
     border-bottom: 1px solid #ddd;
 }
 
-/* Убираем эффект наведения на заголовки */
 th {
     background-color: #007bff !important;
     color: #fff !important;
@@ -87,7 +79,6 @@ tr:hover td {
     background-color: #f1f1f1;
 }
 
-/* Стили для сообщения "No orders found" */
 p {
     text-align: center;
     font-size: 1.2em;

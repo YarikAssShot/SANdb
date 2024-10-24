@@ -1,4 +1,3 @@
-/* register.css */
 
 form div {
     margin-bottom: 10px;
@@ -18,16 +17,14 @@ input[type="password"] {
     margin-bottom: 10px;
 }
 
-/* Стили для центровки ссылки */
 .center-text {
-    text-align: center; /* Размещаем текст по центру */
-    margin-top: 20px; /* Добавляем отступ сверху, чтобы разделить текст и кнопку */
+    text-align: center;
+    margin-top: 20px;
 }
 
-/* Стили для кнопки Register */
 .register-btn {
-    width: 100%; /* Устанавливаем ширину кнопки 100%, чтобы она стала большой */
-    padding: 15px; /* Увеличиваем внутренний отступ для создания более крупной кнопки */
-    font-size: 1.2em; /* Увеличиваем размер шрифта кнопки */
-    margin-top: 20px; /* Добавляем отступ сверху, чтобы создать больше пространства между кнопкой и полями ввода */
+    width: 100%;
+    padding: 15px;
+    font-size: 1.2em;
+    margin-top: 20px;
 }

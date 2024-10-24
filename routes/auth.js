@@ -4,12 +4,10 @@ const passport = require('passport');
 const User = require('../models/User');
 const router = express.Router();
 
-// Маршрут для реєстрації GET
 router.get('/register', (req, res) => {
     res.render('register', { errors: [] });
 });
 
-// Маршрут для реєстрації POST
 router.post('/register', async (req, res) => {
     const { name, email, password, password2 } = req.body;
     let errors = [];
@@ -45,18 +43,15 @@ router.post('/register', async (req, res) => {
     }
 });
 
-// Маршрут для логіну GET
 router.get('/login', (req, res) => {
     res.render('login');
 });
 
-// Маршрут для логіну POST
 router.post('/login', passport.authenticate('local', {
     successRedirect: '/',
     failureRedirect: '/login'
 }));
 
-// Маршрут для виходу
 router.get('/logout', (req, res) => {
     req.logout(() => {
         res.redirect('/login');

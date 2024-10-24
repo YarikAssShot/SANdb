@@ -1,16 +1,13 @@
-/* login.css */
-
-/* Оформление основной формы входа и блока */
 .form-container {
     display: flex;
-    justify-content: center; /* Центровка контейнера */
-    gap: 20px; /* Добавление промежутка между формами */
-    margin-bottom: 20px; /* Добавление отступа снизу для дополнительного пространства */
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
 }
 
 .form-box {
-    flex: 1; /* Одинаковый размер для каждого блока формы */
-    max-width: 400px; /* Ограничение максимальной ширины формы */
+    flex: 1;
+    max-width: 400px;
     padding: 20px;
     background: #fff;
     border-radius: 8px;
@@ -18,11 +15,10 @@
 }
 
 .center-text {
-    text-align: center; /* Центровка текста */
-    margin-top: 20px; /* Добавление отступа сверху */
+    text-align: center;
+    margin-top: 20px;
 }
 
-/* Изменения input и button */
 input[type="email"],
 input[type="password"] {
     width: calc(100% - 20px);
@@ -35,8 +31,7 @@ button[type="submit"] {
     padding: 10px;
 }
 
-/* Добавление отступов и стилей для заголовков формы */
 h2 {
-    text-align: center; /* Заголовки "User Login" и "Admin Login" по центру формы */
+    text-align: center;
     margin-bottom: 15px;
 }

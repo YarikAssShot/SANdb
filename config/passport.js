@@ -6,7 +6,6 @@ module.exports = function (passport) {
     passport.use(
         new LocalStrategy({ usernameField: 'email' }, async (email, password, done) => {
             try {
-                // Знайти користувача за email
                 const user = await User.findOne({ where: { email } });
                 if (!user) {
                     return done(null, false, { message: 'Incorrect email.' });
